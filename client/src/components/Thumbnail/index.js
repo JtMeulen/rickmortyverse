@@ -16,8 +16,10 @@ const Thumbnail = (props) => {
     <div className={styles.container} onClick={navigateToDetails}>
       <div className={styles.imgContainer}>
         {/* TODO: small loading img here */}
-        <img src={char.image} />
-        <div><FavoriteButton id={char.id} /></div>
+        <img src={char.image} className={styles.characterImg}/>
+        <div>
+          <FavoriteButton id={char.id} notClickable />
+        </div>
       </div>
       <span>{char.name}</span> 
       <span>{char.gender} - {char.species} - {char.status}</span>

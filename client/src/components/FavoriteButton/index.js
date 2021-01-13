@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { setFavorites } from '../../store/user-actions';
+import heart from '../../assets/heart.svg';
+import heartEmpty from '../../assets/heart_empty.svg';
 import styles from './styles.module.css';
 
 const FavoriteButton = (props) => {
@@ -12,6 +14,10 @@ const FavoriteButton = (props) => {
   }, [props.favorites])
 
   const handleClick = () => {
+    if(props.notClickable) {
+      return;
+    }
+
     fetch(`/api/favorites/${isFavorite ? 'delete' : 'add'}`, {
       method: isFavorite ? 'DELETE' : 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -24,8 +30,7 @@ const FavoriteButton = (props) => {
     .catch(err => console.error(err));
   }
 
-  // TODO favorite icon
-  return <div onClick={handleClick}>FAVORITE</div>
+  return <img className={styles.heart} src={isFavorite ? heart : heartEmpty} onClick={handleClick}/>
 }
 
 const mapStateToProps = (state) => {

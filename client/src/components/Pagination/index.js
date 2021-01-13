@@ -9,11 +9,35 @@ const Pagination = (props) => {
     props.switchPage(page);
   }
 
+  const getRange = () => {
+    let start = props.currentPage - 2;
+    let end = props.currentPage + 2;
+
+    if(start < 1) {
+      start = 1;
+      end = 5;
+    } else if (end > props.pages) {
+      start = props.pages - 5;
+      end = props.pages;
+    }
+    return Array(end - start + 1).fill().map((_, idx) => start + idx)
+  }
+
   return (
-    <div>
-      {[...Array(props.pages).keys()].map((i, idx) => {
-        const pagenum = idx + 1;
-        return <span key={pagenum} onClick={() => handlePageClick(pagenum)}>{pagenum}</span>
+    <div className={styles.container}>
+      {getRange().map((i, idx) => {
+        const pagenum = i;
+        const active = props.currentPage === pagenum;
+        return (
+          <div 
+            key={pagenum}
+            className={styles.button}
+            style={{ background: active ? 'yellowgreen' : 'white'}}
+            onClick={() => handlePageClick(pagenum)}
+          >
+            {pagenum}
+          </div>
+        )
       })}
     </div>
   )
