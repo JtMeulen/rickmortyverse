@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.container img {
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.description p {
+  margin-top: 0;
+}
+
+.episodes {
+  width: 100vw;
+  padding-left: 20px;
+}
+
+.episodes p {
+  font-size: 18px;
+  margin-top: 0;
+}

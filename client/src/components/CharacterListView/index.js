@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import Pagination from '../Pagination'
 import List from '../List'
 
-import styles from './styles.module.css';
-
 const CharacterListView = (props) => {
   const history = useHistory();
   const [characters, setCharacters] = useState([]);
@@ -18,6 +16,7 @@ const CharacterListView = (props) => {
       .then(res => res.json())
       .then(data => {
         if(!data.authenticated) {
+          // props.loggedOut();
           history.push('/auth');
         } else {
           setPageCount(data.pages);

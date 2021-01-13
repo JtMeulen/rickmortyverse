@@ -25,7 +25,7 @@ const App = (props) => {
     if(data.auth) {
       props.loggedIn(data.username);
     } else {
-      history.push('/auth');
+      history && history.push('/auth');
     }
   }
 
