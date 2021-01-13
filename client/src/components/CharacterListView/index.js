@@ -18,7 +18,7 @@ const CharacterListView = (props) => {
       .then(res => res.json())
       .then(data => {
         if(!data.authenticated) {
-          history.push("/auth");
+          history.push('/auth');
         } else {
           setPageCount(data.pages);
           setCharacters(data.characters);
