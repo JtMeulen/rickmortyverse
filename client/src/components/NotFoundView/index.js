@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
+import notFoundImg from '../../assets/404.jpg';
 import styles from './styles.module.css';
 
 const NotFoundView = () => {
   return (
-    <>
-      <div>404!!</div>
-    </>
+    <div className={styles.container}>
+      <img src={notFoundImg} className={styles.img} />
+    </div>
   )
 }
 

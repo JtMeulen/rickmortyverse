@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 import List from '../List';
-import styles from './styles.module.css';
 
 const FavoritesView = () => {
   const history = useHistory();

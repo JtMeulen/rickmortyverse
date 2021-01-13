@@ -1,0 +1,39 @@
+.container {
+  position: sticky;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  background: black;
+}
+
+.title {
+  margin-left: 10px;
+  color: green;
+  font-weight: bold;
+}
+
+.link {
+  color: white;
+  cursor: pointer;
+  transition: color .2s linear;
+  text-decoration: none;
+  padding: 0px 4px;
+}
+
+.link:hover, .link:focus, .link:active {
+  color: lightgrey;
+}
+
+.active {
+  color: greenyellow;
+}
+
+@media only screen and (max-width: 600px) {
+  .title {
+    display: none;
+  }
+}

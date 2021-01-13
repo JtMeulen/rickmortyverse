@@ -27,7 +27,6 @@ const AuthView = (props) => {
   }
 
   const handleSuccess = (user) => {
-    console.log(user);
     props.loggedIn(user);
     history.push("/");
   }

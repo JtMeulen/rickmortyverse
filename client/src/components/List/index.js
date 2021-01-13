@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Thumbnail from '../Thumbnail';
 import styles from './styles.module.css';
