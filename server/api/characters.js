@@ -13,8 +13,6 @@ router.get('/', (req, res) => {
 
   axios.get(`${BASE_URL}?page=${page}`)
     .then(response => {
-      console.log(response.data);
-      // TODO Map response characters to add 
       return res.json({
         authenticated: true,
         pages: response.data.info.pages,
@@ -36,8 +34,7 @@ router.get('/:id', (req, res) => {
     .then(response => {
       return res.json({
         authenticated: true,
-        character: response.data,
-        favorite: true // TODO Check to match with ID
+        character: response.data
       })
     })
     .catch(err => console.log(err))

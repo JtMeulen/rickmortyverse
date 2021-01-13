@@ -28,7 +28,7 @@ const AuthView = (props) => {
 
   const handleSuccess = (user) => {
     console.log(user);
-    props.loggedIn(user.username);
+    props.loggedIn(user);
     history.push("/");
   }
 
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loggedIn: (username) => dispatch(loggedIn(username)),
+    loggedIn: (user) => dispatch(loggedIn(user)),
     loggedOut: () => dispatch(loggedOut())
   }
 }

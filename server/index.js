@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 // Api routes
 app.use('/api/user', require('./api/user'));
 app.use('/api/characters', require('./api/characters'));
+app.use('/api/favorites', require('./api/favorites'));
 
 // Serve react frontend application
 app.get('*', (req, res) => {

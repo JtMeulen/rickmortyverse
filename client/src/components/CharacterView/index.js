@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 
+import FavoriteButton from '../FavoriteButton';
 import styles from './styles.module.css';
 
 const CharacterView = (props) => {
@@ -15,7 +16,6 @@ const CharacterView = (props) => {
           // props.loggedOut();
           history.push('/auth');
         } else {
-          console.log(data.character);
           setData(data.character);
         }
       })
@@ -33,6 +33,7 @@ const CharacterView = (props) => {
             <p>Status: {data.status}</p>
             <p>Location: {data.location.name}</p>
             <p>Origin: {data.origin.name}</p>
+            <FavoriteButton id={data.id} />
           </div>
           <ul className={styles.episodes}>
             <p>Episodes</p>

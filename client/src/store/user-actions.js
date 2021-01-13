@@ -1,12 +1,19 @@
-export const loggedIn = (username) => {
+export const loggedIn = (payload) => {
   return {
     type: 'LOGGED_IN',
-    username
+    payload
   }
 }
 
 export const loggedOut = () => {
   return {
     type: 'LOGGED_OUT'
+  }
+}
+
+export const setFavorites = (favorites) => {
+  return {
+    type: 'SET_FAVORITES',
+    favorites
   }
 }

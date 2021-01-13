@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
+import FavoriteButton from '../FavoriteButton';
 import styles from './styles.module.css';
 
 const Thumbnail = (props) => {
@@ -16,7 +17,7 @@ const Thumbnail = (props) => {
       <div className={styles.imgContainer}>
         {/* TODO: small loading img here */}
         <img src={char.image} />
-        <span>{'<3'}</span>
+        <div><FavoriteButton id={char.id} /></div>
       </div>
       <span>{char.name}</span> 
       <span>{char.gender} - {char.species} - {char.status}</span>

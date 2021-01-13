@@ -23,7 +23,7 @@ const App = (props) => {
 
   const handleAuth = (data) => {
     if(data.auth) {
-      props.loggedIn(data.username);
+      props.loggedIn(data);
     } else {
       history && history.push('/auth');
     }
@@ -47,7 +47,7 @@ const App = (props) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loggedIn: (username) => dispatch(loggedIn(username))
+    loggedIn: (user) => dispatch(loggedIn(user))
   }
 }
 
