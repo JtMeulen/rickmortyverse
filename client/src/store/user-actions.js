@@ -1,12 +1,12 @@
-export const addClick = (username) => {
+export const loggedIn = (username) => {
   return {
-    type: 'LOGIN',
+    type: 'LOGGED_IN',
     username
   }
 }
 
-export const substractClick = () => {
+export const loggedOut = () => {
   return {
-    type: 'LOGOUT'
+    type: 'LOGGED_OUT'
   }
 }

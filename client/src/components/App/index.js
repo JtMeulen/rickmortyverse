@@ -1,87 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loggedIn } from '../../store/user-actions';
 
-const App = () => {
-  const register = (e) => {
-    e.preventDefault();
-    const formValues = {
-      username: e.target.username.value,
-      password: e.target.password.value
+import CharacterView from '../CharacterView';
+import CharacterListView from '../CharacterListView';
+import FavoritesView from '../FavoritesView';
+import AuthView from '../AuthView';
+import NotFoundView from '../NotFoundView';
+import Navbar from '../Navbar';
+
+const App = (props) => {
+
+  // make initial auth query to see if user is logged in and set this in redux store
+  useLayoutEffect(() => {
+    fetch('/api/user')
+      .then(res => res.json())
+      .then(data => handleAuth(data))
+      .catch((err) => console.error(err))
+  }, []);
+
+  const handleAuth = (data) => {
+    if(data.auth) {
+      props.loggedIn(data.username);
     }
-
-    fetch('/api/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formValues),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error) {
-        console.log(data.error)
-      } else {
-        console.log('Success:', data);
-      }
-    })
-    .catch((err) => console.error(err));
-  }
-
-  const login = (e) => {
-    e.preventDefault();
-    const formValues = {
-      username: e.target.username.value,
-      password: e.target.password.value
-    }
-
-    fetch('/api/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formValues),
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error) {
-        console.log(data.error)
-      } else {
-        console.log('Success:', data);
-      }
-    })
-    .catch((err) => console.error(err));
-  }
-
-  const logout = () => {
-    fetch('/api/user/logout', {
-      method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error) {
-        console.log(data.error)
-      } else {
-        console.log('Success:', data);
-      }
-    })
-    .catch((err) => console.error(err));
   }
 
   return (
-    <>
-      <form name="register" onSubmit={register}>
-        <input type="text" name="username" />
-        <input type="password" name="password" />
-        <input type="submit" />
-      </form>
-      <form name="login" onSubmit={login}>
-        <input type="text" name="username" />
-        <input type="password" name="password" />
-        <input type="submit" />
-      </form>
-      <button onClick={() => fetch('/api/user')}>get user</button>
-      <button onClick={() => logout()}>logout</button>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact render={(props) => <CharacterListView {...props} />} />
+        <Route path="/character/:id" exact render={(props) => <CharacterView {...props} />} />
+        <Route path="/favorites" exact render={(props) => <FavoritesView {...props} />} />
+        <Route path="/auth" exact render={(props) => <AuthView {...props} />} />
+
+        {/* Catch all other routes and render 404 */}
+        <Route path="/" render={(props) => <NotFoundView {...props} />} />
+      </Switch>
+    </BrowserRouter>
   )
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    loggedIn: (username) => dispatch(loggedIn(username))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

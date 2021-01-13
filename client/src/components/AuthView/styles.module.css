@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.container input {
+  width: 100%;
+  margin: 4px 0;
+}
+
+.container button {
+  margin-top: 4px;
+}
+
+.clickableText {
+  color: greenyellow;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 0;
+}

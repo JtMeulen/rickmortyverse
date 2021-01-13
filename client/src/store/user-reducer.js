@@ -5,13 +5,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case 'LOGIN':
+    case 'LOGGED_IN':
       return {
         ...state,
         username: action.username,
         auth: true
       }
-    case 'LOGOUT':
+    case 'LOGGED_OUT':
       return {
         ...state,
         username: '',
