@@ -1,5 +1,5 @@
-import React, { useLayoutEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loggedIn } from '../../store/user-actions';
 
@@ -11,9 +11,10 @@ import NotFoundView from '../NotFoundView';
 import Navbar from '../Navbar';
 
 const App = (props) => {
+  const history = useHistory();
 
   // make initial auth query to see if user is logged in and set this in redux store
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetch('/api/user')
       .then(res => res.json())
       .then(data => handleAuth(data))
@@ -23,6 +24,8 @@ const App = (props) => {
   const handleAuth = (data) => {
     if(data.auth) {
       props.loggedIn(data.username);
+    } else {
+      history.push('/auth');
     }
   }
 

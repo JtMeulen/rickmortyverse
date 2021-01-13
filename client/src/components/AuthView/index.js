@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
+
 import { loggedIn, loggedOut } from '../../store/user-actions';
 
 import styles from './styles.module.css';
 
 const AuthView = (props) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const history = useHistory();
+  const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
@@ -26,7 +29,7 @@ const AuthView = (props) => {
   const handleSuccess = (user) => {
     console.log(user);
     props.loggedIn(user.username);
-    // TODO: navigate to main page
+    history.push("/");
   }
 
   const handleAuth = () => {
