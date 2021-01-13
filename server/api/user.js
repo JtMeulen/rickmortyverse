@@ -4,40 +4,44 @@ const passport = require("passport");
 
 const User = require('../models/User');
 
-// just to test and see the users easily, REMOVE
 router.get('/', (req, res) => {
-  console.log('currentUser', res.locals.currentUser)
-  User.find()
-    .then(users => res.json(users))
-    .catch(err => console.log(err))
+  if(res.locals.currentUser) {
+    return res.json({
+      auth: true,
+      username: res.locals.currentUser.username,
+      favorites: res.locals.currentUser.favorites
+    })
+  } else {
+    return res.json({ auth: false })
+  }
 });
 
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
   const newUser = new User({ username: req.body.username });
   User.register(newUser, req.body.password)
     .then(() => {
-      passport.authenticate("local")(req, res, (user) => {
+      passport.authenticate("local")(req, res, () => {
         return res.json({
-          username: user.username,
-          favorites: user.favorites
+          username: req.user.username,
+          favorites: req.user.favorites
         })
       });
     })
-    .catch(err => res.status(401).json({ error: err.message }))
+    .catch(err => next(err))
 });
 
 router.post('/login', (req, res) => {
-  passport.authenticate("local")(req, res, (user) => {
+  passport.authenticate("local")(req, res, () => {
     return res.json({
-      username: user.username,
-      favorites: user.favorites
+      username: req.user.username,
+      favorites: req.user.favorites
     })
   });
 })
 
-router.post('/logout', (req, res) => {
-  const { username, password } = req.body;
-  console.log(username, password);
+router.get('/logout', (req, res) => {
+  req.logout();
+  return res.json({ auth: false });
 })
 
 module.exports = router;

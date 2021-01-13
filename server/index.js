@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// Passport config
+// Passport authentication configuration
 app.use(require("express-session")({
   secret: process.env.SESSION_SECRET,
   resave: false,
