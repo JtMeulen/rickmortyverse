@@ -10,21 +10,31 @@ import styles from './styles.module.css';
 const AuthView = (props) => {
   const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
 
   const isFormValid = () => {
-    // TODO add more validation. Perhaps double password checker
-    return username.length > 6 && password.length > 6;
+    // Minimum length of both username and password need to be 6 chars
+    // When registering new account, have password and repeatPassword match
+    const inputLength = username.length > 6 && password.length > 6;
+    const passwordMatch = repeatPassword === password;   
+
+    return isLogin ? inputLength : inputLength && passwordMatch;
   }
 
   const handleError = () => {
-    // TODO: Set actual error message
-    setError(true);
+    setError('Please try again');
     setLoading(false);
     setPassword('');
+  }
+
+  const handleFormToggle = () => {
+    setPassword('');
+    setRepeatPassword('');
+    setIsLogin(!isLogin);
   }
 
   const handleSuccess = (user) => {
@@ -34,9 +44,10 @@ const AuthView = (props) => {
 
   const handleAuth = () => {
     if(!isFormValid()) {
-      return setError(true);
+      return setError('Your input values are incorrect');
     };
 
+    setError('');
     setLoading(true);
 
     const authtype = isLogin ? 'login' : 'register';
@@ -57,23 +68,40 @@ const AuthView = (props) => {
   }
 
   return (
-    // TODO: Styling and code structure improvement
     props.authenticated ? <p className={styles.clickableText} onClick={handleLogout}>Click here to logout!</p> : (
       <div className={styles.container}>
         <h1>{isLogin ? 'Login' : 'Register'}</h1>
-        <p onClick={() => setIsLogin(!isLogin)} className={styles.clickableText}>
+        <p onClick={handleFormToggle} className={styles.clickableText}>
           {isLogin ? 'No account? Click here to register' : 'Click here to login'}
         </p>
 
-        {/* TODO remove autofill */}
-        <input type="text" onChange={e => setUsername(e.target.value)} value={username} />
-        <input type="password" onChange={e => setPassword(e.target.value)} value={password} />
+        <input 
+          type="text" 
+          onChange={e => setUsername(e.target.value)}
+          placeholder={'Username (6 chars minimum)'}
+          value={username} 
+        />
+        <input 
+          type="password" 
+          onChange={e => setPassword(e.target.value)}
+          placeholder={'Password (6 chars minimum)'} 
+          value={password} 
+        />
+        {!isLogin && (
+          <input 
+            type="password" 
+            onChange={e => setRepeatPassword(e.target.value)} 
+            placeholder={'Repeat password'} 
+            value={repeatPassword} 
+          />
+        )}
+
         <button onClick={handleAuth} disabled={!isFormValid() || loading}>
           {isLogin ? 'Login' : 'Register'}
         </button>
 
         {loading && <Loader />}
-        {error && <p>An error has occured</p>}
+        {error && <p className={styles.error}>{error}</p>}
       </div>
     )
   )
