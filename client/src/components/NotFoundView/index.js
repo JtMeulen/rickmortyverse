@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 const NotFoundView = () => {
   return (
     <div className={styles.container}>
-      <img src={notFoundImg} className={styles.img} />
+      <img src={notFoundImg} className={styles.img} alt={'404 - Not Found'}/>
     </div>
   )
 }

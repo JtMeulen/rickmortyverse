@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 import { loggedIn, loggedOut } from '../../store/user-actions';
+import Loader from '../Loader';
 
 import styles from './styles.module.css';
 
@@ -57,7 +58,7 @@ const AuthView = (props) => {
 
   return (
     // TODO: Styling and code structure improvement
-    props.authenticated ? <p className={styles.clickableText} onClick={handleLogout}>Click to logout first!</p> : (
+    props.authenticated ? <p className={styles.clickableText} onClick={handleLogout}>Click here to logout!</p> : (
       <div className={styles.container}>
         <h1>{isLogin ? 'Login' : 'Register'}</h1>
         <p onClick={() => setIsLogin(!isLogin)} className={styles.clickableText}>
@@ -70,7 +71,8 @@ const AuthView = (props) => {
         <button onClick={handleAuth} disabled={!isFormValid() || loading}>
           {isLogin ? 'Login' : 'Register'}
         </button>
-  
+
+        {loading && <Loader />}
         {error && <p>An error has occured</p>}
       </div>
     )

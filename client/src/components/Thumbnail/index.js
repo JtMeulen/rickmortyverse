@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 
+import placeholder from '../../assets/img_placeholder.jpeg';
 import FavoriteButton from '../FavoriteButton';
 import styles from './styles.module.css';
 
@@ -15,8 +16,8 @@ const Thumbnail = (props) => {
   return (
     <div className={styles.container} onClick={navigateToDetails}>
       <div className={styles.imgContainer}>
-        {/* TODO: small loading img here */}
-        <img src={char.image} className={styles.characterImg}/>
+        <img src={placeholder} className={styles.characterImg} alt={'Placeholder'}/>
+        <img src={char.image} className={styles.characterImg} alt={char.name} />
         <div>
           <FavoriteButton id={char.id} notClickable />
         </div>

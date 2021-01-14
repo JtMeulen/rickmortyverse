@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { switchPage } from '../../store/app-actions';
 
@@ -25,8 +25,7 @@ const Pagination = (props) => {
 
   return (
     <div className={styles.container}>
-      {getRange().map((i, idx) => {
-        const pagenum = i;
+      {getRange().map((pagenum) => {
         const active = props.currentPage === pagenum;
         return (
           <div 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 import FavoriteButton from '../FavoriteButton';
+import Loader from '../Loader';
 import styles from './styles.module.css';
 
 const CharacterView = (props) => {
@@ -13,7 +14,6 @@ const CharacterView = (props) => {
       .then(res => res.json())
       .then(data => {
         if(!data.authenticated) {
-          // props.loggedOut();
           history.push('/auth');
         } else {
           setData(data.character);
@@ -23,9 +23,9 @@ const CharacterView = (props) => {
 
   return (
     <div className={styles.container}>
-      {!data ? 'loading' : (
+      {!data ? <Loader /> : (
         <>
-          <img src={data.image} />
+          <img src={data.image} alt={data.name} />
           <div className={styles.description}>
             <p>Name: {data.name}</p>
             <p>Gender: {data.gender}</p>

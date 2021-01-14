@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import Pagination from '../Pagination'
-import List from '../List'
+import Loader from '../Loader';
+import Pagination from '../Pagination';
+import List from '../List';
 
 const CharacterListView = (props) => {
   const history = useHistory();
@@ -16,7 +17,6 @@ const CharacterListView = (props) => {
       .then(res => res.json())
       .then(data => {
         if(!data.authenticated) {
-          // props.loggedOut();
           history.push('/auth');
         } else {
           setPageCount(data.pages);
@@ -28,7 +28,7 @@ const CharacterListView = (props) => {
   return (
     <div>
       <Pagination pages={pageCount} />
-      {characters.length ? <List characters={characters} /> : <p>loading</p>}
+      {characters.length ? <List characters={characters} /> : <Loader />}
     </div>
   )
 }

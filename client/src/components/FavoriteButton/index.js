@@ -24,13 +24,18 @@ const FavoriteButton = (props) => {
       body: JSON.stringify({ id: props.id }),
     })
     .then(res => res.json())
-    .then(data => {
-      props.setFavorites(data.favorites);
-    })
+    .then(data => props.setFavorites(data.favorites))
     .catch(err => console.error(err));
   }
 
-  return <img className={styles.heart} src={isFavorite ? heart : heartEmpty} onClick={handleClick}/>
+  return (
+    <img 
+      className={styles.heart}
+      src={isFavorite ? heart : heartEmpty}
+      alt={'Favorite Button'}
+      onClick={handleClick}
+    />
+  )
 }
 
 const mapStateToProps = (state) => {
